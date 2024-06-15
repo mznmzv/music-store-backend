@@ -12,6 +12,7 @@ dotenv.config()
 
 const PORT = process.env.PORT || 3009
 const DB_NAME = process.env.DB_NAME
+const DB_URL = process.env.DB_URL
 
 // Middleware
 app.use(cors())
@@ -26,7 +27,7 @@ app.use('/api/deal', dealRouter)
 
 async function start() {
     try {
-        await mongoose.connect(`mongodb://0.0.0.0:27017/${DB_NAME}`)
+        await mongoose.connect(`${DB_URL}/${DB_NAME}`)
 
         app.listen(PORT, () => {
             console.log(`Server has been started on port ${PORT}`)
