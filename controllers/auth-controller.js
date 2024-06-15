@@ -11,6 +11,7 @@ export const register = async (req, res) => {
             return res.json({ message: result.errors[0].msg })
         }
         const { username, password, tel, adress } = req.body
+
         const haveUser = await User.findOne({ username })
         if (haveUser) {
             return res.json({
