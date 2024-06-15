@@ -6,6 +6,8 @@ import authRouter from './routes/auth-router.js'
 import releaseRouter from './routes/release-router.js'
 import dealRouter from './routes/deal-router.js'
 import fileUpload from 'express-fileupload'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 const app = express()
 dotenv.config()
@@ -18,12 +20,10 @@ const DB_URL = process.env.DB_URL
 app.use(cors())
 app.use(express.json())
 app.use(fileUpload())
-app.use(express.static('uploads'))
 
-app.use('/uploads', (req, res, next) => {
-    res.set('Content-Disposition', 'inline')
-    next()
-})
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // Routes
 app.use('/api/auth', authRouter)
