@@ -6,6 +6,7 @@ import authRouter from './routes/auth-router.js'
 import releaseRouter from './routes/release-router.js'
 import dealRouter from './routes/deal-router.js'
 import fileUpload from 'express-fileupload'
+import path from 'path'
 
 const app = express()
 dotenv.config()
@@ -13,6 +14,9 @@ dotenv.config()
 const PORT = process.env.PORT || 3009
 const DB_NAME = process.env.DB_NAME
 const DB_URL = process.env.DB_URL
+
+const __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // Middleware
 app.use(cors())
